@@ -1,9 +1,8 @@
 #include "main.h"
 
 /**
-* _printf - produces output according to a format
-* @format: character string with zero or more directives
-*
+* _printf - custom printf that handles %d and %i
+* @format: format string
 * Return: number of characters printed
 */
 int _printf(const char *format, ...)
@@ -16,32 +15,29 @@ int _printf(const char *format, ...)
 
 	va_start(args, format);
 
-	while (format[i] != '\0')
+	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			i++;
-			if (format[i] == '\0')
-				return (-1);
 
-			if (format[i] == 'c')
-				count += print_char(va_arg(args, int));
-
-			else if (format[i] == 's')
-				count += print_string(va_arg(args, char *));
-
+			if (format[i] == 'd' || format[i] == 'i')
+				count += print_int(va_arg(args, int));
 			else if (format[i] == '%')
-				count += print_char('%');
+				count += write(1, "%", 1);
 			else
 			{
-				count += print_char('%');
-				count += print_char(format[i]);
+				count += write(1, "%", 1);
+				count += write(1, &format[i], 1);
 			}
 		}
 		else
-			count += print_char(format[i]);
+		{
+			count += write(1, &format[i], 1);
+		}
 		i++;
 	}
+
 	va_end(args);
 	return (count);
 }

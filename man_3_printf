@@ -1,0 +1,83 @@
+_PRINTF(3)                 Library Functions Manual                 _PRINTF(3)
+
+NAME
+     _printf - formatted output conversion
+
+SYNOPSIS
+     #include "main.h"
+
+     int _printf(const char *format, ...);
+
+DESCRIPTION
+     The _printf() function produces output according to a format as described
+     below. The _printf() function writes output to stdout, the standard out-
+     put stream.
+
+     This function writes the output under the control of a format string that
+     specifies how subsequent arguments (or arguments accessed via the vari-
+     able-length argument facilities of stdarg(3)) are converted for output.
+
+     The format string is composed of zero or more directives: ordinary char-
+     acters (not %), which are copied unchanged to the output stream; and con-
+     version specifications, each of which results in fetching zero or more
+     subsequent arguments. Each conversion specification is introduced by the
+     character %. The arguments must correspond properly (after type promo-
+     tion) with the conversion specifier.
+
+   Conversion Specifiers
+     A character that specifies the type of conversion to be applied. The con-
+     version specifiers and their meanings are:
+
+     c       The int argument is converted to an unsigned char, and the
+             resulting character is written.
+
+     s       The const char * argument is expected to be a pointer to an array
+             of character type (pointer to a string). Characters from the
+             array are written up to (but not including) a terminating null
+             byte ('\0').
+
+     %       A '%' is written. No argument is converted. The complete conver-
+             sion specification is '%%'.
+
+RETURN VALUE
+     Upon successful return, _printf() returns the number of characters
+     printed (excluding the null byte used to end output to strings).
+
+     If an output error is encountered, a negative value is returned.
+
+EXAMPLES
+To print a simple message:
+           _printf("Hello, World!\n");
+
+     To print a character:
+           _printf("Character: %c\n", 'A');
+
+     To print a string:
+           _printf("String: %s\n", "Hello");
+
+     To print a percent sign:
+           _printf("Percent: %%\n");
+
+     To print multiple arguments:
+           _printf("Name: %s, Grade: %c\n", "Alice", 'A');
+
+SEE ALSO
+     printf(3), putchar(3), puts(3)
+
+STANDARDS
+     The _printf() function is a simplified implementation inspired by the C
+     standard library printf() function as described in ISO/IEC 9899:1999
+     ("ISO C99").
+
+BUGS
+     This implementation only supports a limited set of conversion specifiers
+     (%c, %s, %%). Other specifiers from the standard printf() are not imple-
+     mented.
+
+     No flag characters, field width, precision, or length modifiers are sup-
+     ported in this implementation.
+
+AUTHORS
+     Custom implementation for educational purposes.
+
+                                                                    _PRINTF(3)
